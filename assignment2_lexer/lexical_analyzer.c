@@ -389,61 +389,61 @@ void DFA_Special(LexerState* lexerState)
     // For adding a token to tokenlist, you could create a token, fill its 
     // .. fields as required and use the following call:
     // addToken(&lexerState->tokenList, token);
+    
+    char c = lexerState->sourceCode[lexerState->charInd];
 
-    switch (lexerState->sourceCode[lexerState->charInd])
+    switch (c)
     {
         case '+':
             token.id = plussym;
-            token.lexeme[1] = *tokens[plussym];
+            strcpy(token.lexeme, tokens[plussym]);
             addToken(&lexerState->tokenList, token);
             break;
         case '-':
             token.id = minussym;
-            token.lexeme[1] = *tokens[minussym];
+            strcpy(token.lexeme, tokens[minussym]);
             addToken(&lexerState->tokenList, token);
             break;
         case '(':
             token.id = lparentsym;
-            token.lexeme[1] = *tokens[lparentsym];
+            strcpy(token.lexeme, tokens[lparentsym]);
             addToken(&lexerState->tokenList, token);
             break;
         case ')':
             token.id = rparentsym;
-            token.lexeme[1] = *tokens[rparentsym];
+            strcpy(token.lexeme, tokens[rparentsym]);
             addToken(&lexerState->tokenList, token);
             break;
         case '*':
             token.id = multsym;
-            token.lexeme[1] = *tokens[multsym];
+            strcpy(token.lexeme, tokens[multsym]);
             addToken(&lexerState->tokenList, token);
             break;
         case '=':
             token.id = eqsym;
-            token.lexeme[1] = *tokens[eqsym];
+            strcpy(token.lexeme, tokens[eqsym]);
             addToken(&lexerState->tokenList, token);
             break;
         case ',':
             token.id = commasym;
-            token.lexeme[1] = *tokens[commasym];
+            strcpy(token.lexeme, tokens[commasym]);
             addToken(&lexerState->tokenList, token);
             break;
         case ';':
             token.id = semicolonsym;
-            token.lexeme[1] = *tokens[semicolonsym];
+            strcpy(token.lexeme, tokens[semicolonsym]);
             addToken(&lexerState->tokenList, token);
             break;
         case '.':
             token.id = periodsym;
-            token.lexeme[1] = *tokens[periodsym];
+            strcpy(token.lexeme, tokens[periodsym]);
             addToken(&lexerState->tokenList, token);
             break;
         case ':':
             if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
             {
                 token.id = becomessym;
-                token.lexeme[1] = ':';
-                token.lexeme[2] = '=';
-                addToken(&lexerState->tokenList, token);
+                strcpy(token.lexeme, tokens[becomessym]);
                 lexerState->charInd++;
             }
             break;
@@ -451,15 +451,14 @@ void DFA_Special(LexerState* lexerState)
             if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
             {
                 token.id = geqsym;
-                token.lexeme[1] = '>';
-                token.lexeme[2] = '=';
+                strcpy(token.lexeme, tokens[geqsym]);
                 addToken(&lexerState->tokenList, token);
                 lexerState->charInd++;
             }
             else
             {
                 token.id = gtrsym;
-                token.lexeme[1] = '>';
+                strcpy(token.lexeme, tokens[gtrsym]);
                 addToken(&lexerState->tokenList, token);
             }
             break;
@@ -468,16 +467,14 @@ void DFA_Special(LexerState* lexerState)
             if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
             {
                 token.id = leqsym;
-                token.lexeme[1] = '<';
-                token.lexeme[2] = '=';
+                strcpy(token.lexeme, tokens[leqsym]);
                 addToken(&lexerState->tokenList, token);
                 lexerState->charInd++;
             }
             if (lexerState->sourceCode[lexerState->charInd + 1] == '>')
             {
                 token.id = neqsym;
-                token.lexeme[1] = '<';
-                token.lexeme[2] = '=';
+                strcpy(token.lexeme, tokens[neqsym]);
                 addToken(&lexerState->tokenList, token);
                 lexerState->charInd++;
             }
@@ -485,7 +482,7 @@ void DFA_Special(LexerState* lexerState)
             else
             {
                 token.id = lessym;
-                token.lexeme[1] = '<';
+                strcpy(token.lexeme, tokens[lessym]);
                 addToken(&lexerState->tokenList, token);
             }
             break;
@@ -502,7 +499,7 @@ void DFA_Special(LexerState* lexerState)
             else
             {
                 token.id = slashsym;
-                token.lexeme[1] = '/';
+                strcpy(token.lexeme, tokens[slashsym]);
                 addToken(&lexerState->tokenList, token);
             }
             break;
@@ -511,6 +508,7 @@ void DFA_Special(LexerState* lexerState)
             printf("NO VALID SPECIAL CHARACTER %c \n", lexerState->sourceCode[lexerState->charInd]);
             break;
     }
+    lexerState->charInd++;
     return;
 }
 
