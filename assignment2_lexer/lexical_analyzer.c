@@ -182,12 +182,126 @@ void DFA_Alpha(LexerState* lexerState)
     // TODO: Remove the below message after your implementation
     // Until implementing, let's just consume the current character and return.
     char c = lexerState->sourceCode[lexerState->charInd];
-
-    printf("DFA_Alpha: The character \'%c\' was seen and ignored. Please implement the function.\n", c);
-
-    // The character was consumed (by ignoring). Advance to the next character.
+    int length = 0;
+    char exp[100];
+    Token token;
+    
+    for (int i = 0; isalpha(c); i++)
+    {
+        exp[i] = c;
+        lexerState->charInd++;
+        length++;
+        c = lexerState->sourceCode[lexerState->charInd];
+    }
+    
+    if (length > 11)
+    {
+        lexerState->lexerError = 1;
+        lexerState->charInd++;
+        return;
+    }
+    
+    else
+    {
+        if (strcmp(exp, tokens[beginsym]))
+        {
+            token.id = beginsym;
+            strcpy(token.lexeme, tokens[beginsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[endsym]))
+        {
+            token.id = endsym;
+            strcpy(token.lexeme, tokens[endsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[ifsym]))
+        {
+            token.id = ifsym;
+            strcpy(token.lexeme, tokens[ifsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[ifsym]))
+        {
+            token.id = ifsym;
+            strcpy(token.lexeme, tokens[ifsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[thensym]))
+        {
+            token.id = thensym;
+            strcpy(token.lexeme, tokens[thensym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[whilesym]))
+        {
+            token.id = whilesym;
+            strcpy(token.lexeme, tokens[whilesym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[dosym]))
+        {
+            token.id = dosym;
+            strcpy(token.lexeme, tokens[dosym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[callsym]))
+        {
+            token.id = callsym;
+            strcpy(token.lexeme, tokens[callsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[constsym]))
+        {
+            token.id = constsym;
+            strcpy(token.lexeme, tokens[constsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[varsym]))
+        {
+            token.id = varsym;
+            strcpy(token.lexeme, tokens[varsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[procsym]))
+        {
+            token.id = procsym;
+            strcpy(token.lexeme, tokens[procsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[writesym]))
+        {
+            token.id = writesym;
+            strcpy(token.lexeme, tokens[writesym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[readsym]))
+        {
+            token.id = readsym;
+            strcpy(token.lexeme, tokens[readsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[elsesym]))
+        {
+            token.id = thensym;
+            strcpy(token.lexeme, tokens[thensym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else if (strcmp(exp, tokens[oddsym]))
+        {
+            token.id = oddsym;
+            strcpy(token.lexeme, tokens[oddsym]);
+            addToken(&lexerState->tokenList, token);
+        }
+        else
+        {
+            token.id = identsym;
+            strcpy(token.lexeme, exp);
+            addToken(&lexerState->tokenList, token);
+        }
+    }
+    
     lexerState->charInd++;
-
     return;
 }
 
