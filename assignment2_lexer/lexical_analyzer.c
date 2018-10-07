@@ -233,6 +233,7 @@ void DFA_Digit(LexerState* lexerState)
 
 void DFA_Special(LexerState* lexerState)
 {
+    Token token;
     // There are three cases for symbols starting with special:
     // Case.1: Beginning of a comment: "/*"
     // Case.2: Two character special symbol: "<>", "<=", ">=", ":="
@@ -249,20 +250,127 @@ void DFA_Special(LexerState* lexerState)
     // .. fields as required and use the following call:
     // addToken(&lexerState->tokenList, token);
 
-    /**
-     * TODO
-     * Implement this function
-     * */
-
-    // TODO: Remove the below message after your implementation
-    // Until implementing, let's just consume the current character and return.
-    char c = lexerState->sourceCode[lexerState->charInd];
-
-    printf("DFA_Special: The character \'%c\' was seen and ignored. Please implement the function.\n", c);
-
-    // The character was consumed (by ignoring). Advance to the next character.
-    lexerState->charInd++;
-
+    switch (lexerState->sourceCode[lexerState->charInd])
+    {
+        case '+':
+            token.id = plussym;
+            token.lexeme[1] = *tokens[plussym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case '-':
+            token.id = minussym;
+            token.lexeme[1] = *tokens[minussym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case '(':
+            token.id = lparentsym;
+            token.lexeme[1] = *tokens[lparentsym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case ')':
+            token.id = rparentsym;
+            token.lexeme[1] = *tokens[rparentsym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case '*':
+            token.id = multsym;
+            token.lexeme[1] = *tokens[multsym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case '=':
+            token.id = eqsym;
+            token.lexeme[1] = *tokens[eqsym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case ',':
+            token.id = commasym;
+            token.lexeme[1] = *tokens[commasym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case ';':
+            token.id = semicolonsym;
+            token.lexeme[1] = *tokens[semicolonsym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case '.':
+            token.id = periodsym;
+            token.lexeme[1] = *tokens[periodsym];
+            addToken(&lexerState->tokenList, token);
+            break;
+        case ':':
+            if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
+            {
+                token.id = becomessym;
+                token.lexeme[1] = ':';
+                token.lexeme[2] = '=';
+                addToken(&lexerState->tokenList, token);
+                lexerState->charInd++;
+            }
+            break;
+        case '>':
+            if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
+            {
+                token.id = geqsym;
+                token.lexeme[1] = '>';
+                token.lexeme[2] = '=';
+                addToken(&lexerState->tokenList, token);
+                lexerState->charInd++;
+            }
+            else
+            {
+                token.id = gtrsym;
+                token.lexeme[1] = '>';
+                addToken(&lexerState->tokenList, token);
+            }
+            break;
+            
+        case '<':
+            if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
+            {
+                token.id = leqsym;
+                token.lexeme[1] = '<';
+                token.lexeme[2] = '=';
+                addToken(&lexerState->tokenList, token);
+                lexerState->charInd++;
+            }
+            if (lexerState->sourceCode[lexerState->charInd + 1] == '>')
+            {
+                token.id = neqsym;
+                token.lexeme[1] = '<';
+                token.lexeme[2] = '=';
+                addToken(&lexerState->tokenList, token);
+                lexerState->charInd++;
+            }
+            
+            else
+            {
+                token.id = lessym;
+                token.lexeme[1] = '<';
+                addToken(&lexerState->tokenList, token);
+            }
+            break;
+        case '/':
+            if (lexerState->sourceCode[lexerState->charInd + 1] == '*')
+            {
+                lexerState->charInd++;
+                for (int i = 0; lexerState->sourceCode[lexerState->charInd] != '/'; i++)
+                {
+                    lexerState->charInd++;
+                }
+            }
+            
+            else
+            {
+                token.id = slashsym;
+                token.lexeme[1] = '/';
+                addToken(&lexerState->tokenList, token);
+            }
+            break;
+            
+        default:
+            printf("NO VALID SPECIAL CHARACTER %c \n", lexerState->sourceCode[lexerState->charInd]);
+            break;
+    }
     return;
 }
 
