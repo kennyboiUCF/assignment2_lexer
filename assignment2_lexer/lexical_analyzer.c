@@ -221,13 +221,39 @@ void DFA_Digit(LexerState* lexerState)
 
     // TODO: Remove the below message after your implementation
     // Until implementing, let's just consume the current character and return.
+    int length = 1;
     char c = lexerState->sourceCode[lexerState->charInd];
-
-    printf("DFA_Digit: The character \'%c\' was seen and ignored. Please implement the function.\n", c);
-
-    // The character was consumed (by ignoring). Advance to the next character.
+    char digits[100];
+    for (int i=0; c <= '9' && c >= 0 ; i++)
+    {
+        digits[i] = c;
+        length++;
+        lexerState->charInd++;
+        c = lexerState->sourceCode[lexerState->charInd];
+        
+    }
+    
+    if (length > 5)
+    {
+        lexerState->lexerError = 1;
+        return;
+    }
+    
+    else if (isalpha(c))
+    {
+        lexerState->lexerError = 1;
+        return;
+    }
+    
+    else
+    {
+        Token token;
+        token.id = numbersym;
+        strcpy(token.lexeme, digits);
+        addToken(&lexerState->tokenList, token);
+    }
+    
     lexerState->charInd++;
-
     return;
 }
 
