@@ -1,3 +1,10 @@
+/*
+ COP3402
+ LEXER
+ ASSIGNMENT #2
+ Kenneth J. Rosario Rodríguez
+ */
+
 #include "lexical_analyzer.h"
 #include "data.h"
 #include "token.h"
