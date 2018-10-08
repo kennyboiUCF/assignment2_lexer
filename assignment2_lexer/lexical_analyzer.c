@@ -389,9 +389,9 @@ void DFA_Special(LexerState* lexerState)
     // .. fields as required and use the following call:
     // addToken(&lexerState->tokenList, token);
     
-    char c = lexerState->sourceCode[lexerState->charInd];
+    char c = lexerState->sourceCode[lexerState->charInd]; // c is the current special symbol.
 
-    switch (c)
+    switch (c) // lots of cases in this one.
     {
         case '+':
             token.id = plussym;
@@ -438,12 +438,12 @@ void DFA_Special(LexerState* lexerState)
             strcpy(token.lexeme, tokens[periodsym]);
             addToken(&lexerState->tokenList, token);
             break;
-        case ':':
+        case ':': // interesting case. : is not used in any other context so it doesnt have it's separate symbol.
             if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
             {
                 token.id = becomessym;
                 strcpy(token.lexeme, tokens[becomessym]);
-                lexerState->charInd++;
+                lexerState->charInd++; // you'll see these in other two char cases. I just judged which char came next and forwarded the index counter to that specific char. there is one at the end as well for all cases to move on to the next one, so it doesnt stay and count the second part.
             }
             break;
         case '>':
@@ -488,14 +488,14 @@ void DFA_Special(LexerState* lexerState)
         case '/':
             if (lexerState->sourceCode[lexerState->charInd + 1] == '*')
             {
-                lexerState->charInd++;
+                lexerState->charInd++; // move to the '*' character in the comment.
                 for (int i = 0; lexerState->sourceCode[lexerState->charInd] != '/'; i++)
                 {
-                    lexerState->charInd++;
+                    lexerState->charInd++; // comments dont count, so i'm just scrolling past all the "worthless" (not in a bad way) text until i get to that last '/' character.
                 }
             }
             
-            else
+            else //it's just a lonely slash.
             {
                 token.id = slashsym;
                 strcpy(token.lexeme, tokens[slashsym]);
@@ -507,7 +507,7 @@ void DFA_Special(LexerState* lexerState)
             printf("NO VALID SPECIAL CHARACTER %c \n", lexerState->sourceCode[lexerState->charInd]);
             break;
     }
-    lexerState->charInd++;
+    lexerState->charInd++; // move on to the next one to avoid any redundancies.
     return;
 }
 
