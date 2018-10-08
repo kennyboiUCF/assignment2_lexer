@@ -332,14 +332,12 @@ void DFA_Digit(LexerState* lexerState)
      * TODO
      * Implement this function
      * */
-
-    // TODO: Remove the below message after your implementation
-    // Until implementing, let's just consume the current character and return.
-    int length = 1;
-    char c = lexerState->sourceCode[lexerState->charInd];
-    char digits[100];
     
-    for (int i=0; c <= '9' && c >= 0 ; i++)
+    int length = 0; //starts at 0 but indicates length of number string.
+    char c = lexerState->sourceCode[lexerState->charInd];
+    char digits[100]; // string of numbers
+    
+    for (int i=0; isdigit(c); i++) // compile all numbers into the char array digits
     {
         digits[i] = c;
         length++;
@@ -348,19 +346,19 @@ void DFA_Digit(LexerState* lexerState)
         
     }
     
-    if (length > 5)
+    if (length > 5) // if its longer than 5 then it wont work.
     {
         lexerState->lexerError = 1;
         return;
     }
     
-    else if (isalpha(c))
+    else if (isalpha(c)) // if that new character is alpha-numeric, that won't work either.
     {
         lexerState->lexerError = 1;
         return;
     }
     
-    else
+    else //if all is good, take the token and slap it home.
     {
         Token token;
         token.id = numbersym;
@@ -368,7 +366,7 @@ void DFA_Digit(LexerState* lexerState)
         addToken(&lexerState->tokenList, token);
     }
     
-    lexerState->charInd++;
+    lexerState->charInd++; // on to the next one before you leave.
     return;
 }
 
