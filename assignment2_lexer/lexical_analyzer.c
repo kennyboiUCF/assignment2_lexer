@@ -181,12 +181,12 @@ void DFA_Alpha(LexerState* lexerState)
 
     // TODO: Remove the below message after your implementation
     // Until implementing, let's just consume the current character and return.
-    char c = lexerState->sourceCode[lexerState->charInd];
-    int length = 0;
-    char exp[100];
-    Token token;
+    char c = lexerState->sourceCode[lexerState->charInd]; // c is the current character
+    int length = 0; //length of string exp
+    char exp[100]; // exp will be used to store characters for words there
+    Token token; // the token that will be extracted
     
-    for (int i = 0; isalpha(c); i++)
+    for (int i = 0; isalpha(c); i++) //compile all the words together and get the length.
     {
         exp[i] = c;
         lexerState->charInd++;
@@ -194,14 +194,14 @@ void DFA_Alpha(LexerState* lexerState)
         c = lexerState->sourceCode[lexerState->charInd];
     }
     
-    if (length > 11)
+    if (length > 11) //if its longer than 11, you're outta' here.
     {
         lexerState->lexerError = 1;
         lexerState->charInd++;
         return;
     }
     
-    else
+    else //compares string to reserved words (including odd!) and slaps everything in.
     {
         if (strcmp(exp, tokens[beginsym]))
         {
@@ -293,7 +293,7 @@ void DFA_Alpha(LexerState* lexerState)
             strcpy(token.lexeme, tokens[oddsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else
+        else // if word isnt a reserved word, put it in as a indent.
         {
             token.id = identsym;
             strcpy(token.lexeme, exp);
@@ -301,7 +301,7 @@ void DFA_Alpha(LexerState* lexerState)
         }
     }
     
-    lexerState->charInd++;
+    lexerState->charInd++; // on to the next one!
     return;
 }
 
