@@ -338,6 +338,7 @@ void DFA_Digit(LexerState* lexerState)
     int length = 1;
     char c = lexerState->sourceCode[lexerState->charInd];
     char digits[100];
+    
     for (int i=0; c <= '9' && c >= 0 ; i++)
     {
         digits[i] = c;
