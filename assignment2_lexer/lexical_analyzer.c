@@ -299,6 +299,7 @@ void DFA_Alpha(LexerState* lexerState)
             strcpy(token.lexeme, tokens[oddsym]);
             addToken(&lexerState->tokenList, token);
         }
+    
         else // if word isnt a reserved word, put it in as a indent.
         {
             token.id = identsym;
