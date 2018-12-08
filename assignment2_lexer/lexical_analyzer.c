@@ -452,6 +452,12 @@ void DFA_Special(LexerState* lexerState)
                 strcpy(token.lexeme, tokens[becomessym]);
                 lexerState->charInd++; // you'll see these in other two char cases. I just judged which char came next and forwarded the index counter to that specific char. there is one at the end as well for all cases to move on to the next one, so it doesnt stay and count the second part.
             }
+            else
+            {
+                lexerState->lexerError = INV_SYM;
+                return;
+                
+            }
             break;
         case '>':
             if (lexerState->sourceCode[lexerState->charInd + 1] == '=')
