@@ -191,111 +191,109 @@ void DFA_Alpha(LexerState* lexerState)
     // Until implementing, let's just consume the current character and return.
     char c = lexerState->sourceCode[lexerState->charInd]; // c is the current character
     int length = 0; //length of string exp
-    char exp[100]; // exp will be used to store characters for words there
+    char exp[11]; // exp will be used to store characters for words there
     Token token; // the token that will be extracted
     
     for (int i = 0; isalpha(c); i++) //compile all the words together and get the length.
     {
+        if (length > 11) //if its longer than 11, you're outta' here.
+        {
+            lexerState->lexerError = NAME_TOO_LONG;
+            lexerState->charInd++;
+            return;
+        }
+        
         exp[i] = c;
         lexerState->charInd++;
         length++;
         c = lexerState->sourceCode[lexerState->charInd];
     }
     
-    if (length > 11) //if its longer than 11, you're outta' here.
-    {
-        lexerState->lexerError = 1;
-        lexerState->charInd++;
-        return;
-    }
-    
-    else //compares string to reserved words (including odd!) and slaps everything in.
-    {
-        if (strcmp(exp, tokens[beginsym]))
+        if (strcmp(exp, tokens[beginsym]) == 0)
         {
             token.id = beginsym;
             strcpy(token.lexeme, tokens[beginsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[endsym]))
+        else if (strcmp(exp, tokens[endsym]) == 0)
         {
             token.id = endsym;
             strcpy(token.lexeme, tokens[endsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[ifsym]))
+        else if (strcmp(exp, tokens[ifsym]) == 0)
         {
             token.id = ifsym;
             strcpy(token.lexeme, tokens[ifsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[ifsym]))
+        else if (strcmp(exp, tokens[ifsym]) == 0)
         {
             token.id = ifsym;
             strcpy(token.lexeme, tokens[ifsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[thensym]))
+        else if (strcmp(exp, tokens[thensym]) == 0)
         {
             token.id = thensym;
             strcpy(token.lexeme, tokens[thensym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[whilesym]))
+        else if (strcmp(exp, tokens[whilesym]) == 0)
         {
             token.id = whilesym;
             strcpy(token.lexeme, tokens[whilesym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[dosym]))
+        else if (strcmp(exp, tokens[dosym]) == 0)
         {
             token.id = dosym;
             strcpy(token.lexeme, tokens[dosym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[callsym]))
+        else if (strcmp(exp, tokens[callsym]) == 0)
         {
             token.id = callsym;
             strcpy(token.lexeme, tokens[callsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[constsym]))
+        else if (strcmp(exp, tokens[constsym]) == 0)
         {
             token.id = constsym;
             strcpy(token.lexeme, tokens[constsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[varsym]))
+        else if (strcmp(exp, tokens[varsym]) == 0)
         {
             token.id = varsym;
             strcpy(token.lexeme, tokens[varsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[procsym]))
+        else if (strcmp(exp, tokens[procsym]) == 0)
         {
             token.id = procsym;
             strcpy(token.lexeme, tokens[procsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[writesym]))
+        else if (strcmp(exp, tokens[writesym]) == 0)
         {
             token.id = writesym;
             strcpy(token.lexeme, tokens[writesym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[readsym]))
+        else if (strcmp(exp, tokens[readsym]) == 0)
         {
             token.id = readsym;
             strcpy(token.lexeme, tokens[readsym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[elsesym]))
+        else if (strcmp(exp, tokens[elsesym]) == 0)
         {
             token.id = thensym;
             strcpy(token.lexeme, tokens[thensym]);
             addToken(&lexerState->tokenList, token);
         }
-        else if (strcmp(exp, tokens[oddsym]))
+        else if (strcmp(exp, tokens[oddsym]) == 0)
         {
             token.id = oddsym;
             strcpy(token.lexeme, tokens[oddsym]);
@@ -307,7 +305,7 @@ void DFA_Alpha(LexerState* lexerState)
             strcpy(token.lexeme, exp);
             addToken(&lexerState->tokenList, token);
         }
-    }
+    
     
     lexerState->charInd++; // on to the next one!
     return;
@@ -343,36 +341,37 @@ void DFA_Digit(LexerState* lexerState)
     
     int length = 0; //starts at 0 but indicates length of number string.
     char c = lexerState->sourceCode[lexerState->charInd];
-    char digits[100]; // string of numbers
+    char digits[5]; // string of numbers
     
     for (int i=0; isdigit(c); i++) // compile all numbers into the char array digits
     {
-        digits[i] = c;
-        length++;
-        lexerState->charInd++;
-        c = lexerState->sourceCode[lexerState->charInd];
+        if (length > 5) // if its longer than 5 then it wont work.
+        {
+            lexerState->lexerError = NUM_TOO_LONG;
+            return;
+        }
+        
+        else if (isalpha(c)) // if that new character is alpha-numeric, that won't work either.
+        {
+            lexerState->lexerError = NONLETTER_VAR_INITIAL;
+            return;
+        }
+        
+        else
+        {
+            digits[i] = c;
+            length++;
+            lexerState->charInd++;
+            c = lexerState->sourceCode[lexerState->charInd];
+        }
         
     }
     
-    if (length > 5) // if its longer than 5 then it wont work.
-    {
-        lexerState->lexerError = 1;
-        return;
-    }
+    Token token;
+    token.id = numbersym;
+    strcpy(token.lexeme, digits);
+    addToken(&lexerState->tokenList, token);
     
-    else if (isalpha(c)) // if that new character is alpha-numeric, that won't work either.
-    {
-        lexerState->lexerError = 1;
-        return;
-    }
-    
-    else //if all is good, take the token and slap it home.
-    {
-        Token token;
-        token.id = numbersym;
-        strcpy(token.lexeme, digits);
-        addToken(&lexerState->tokenList, token);
-    }
     
     lexerState->charInd++; // on to the next one before you leave.
     return;

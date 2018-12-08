@@ -12,6 +12,7 @@
 		4FB151572161CEFD00843DB6 /* lexical_analyzer.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FB151532161CEFD00843DB6 /* lexical_analyzer.c */; };
 		4FB1515A2161CF1800843DB6 /* source_code.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FB151582161CF1800843DB6 /* source_code.c */; };
 		4FB1515D2161CF1F00843DB6 /* token.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FB1515B2161CF1F00843DB6 /* token.c */; };
+		4FC4937C21BB6A4900D39EC4 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4937B21BB6A4900D39EC4 /* Makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,13 +31,14 @@
 		4FB151462161CEBC00843DB6 /* assignment2_lexer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = assignment2_lexer; sourceTree = BUILT_PRODUCTS_DIR; };
 		4FB151502161CEFD00843DB6 /* data.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = data.h; sourceTree = "<group>"; };
 		4FB151512161CEFD00843DB6 /* lexical_analyzer_deleteLexerOut.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lexical_analyzer_deleteLexerOut.c; sourceTree = "<group>"; };
-		4FB151522161CEFD00843DB6 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = "../../../Downloads/assignment2-lexer-toplaners-master/main.c"; sourceTree = "<group>"; };
+		4FB151522161CEFD00843DB6 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = "../../../Downloads/assignment2-lexer-toplaners-master/main.c"; sourceTree = "<group>"; usesTabs = 0; };
 		4FB151532161CEFD00843DB6 /* lexical_analyzer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lexical_analyzer.c; sourceTree = "<group>"; };
 		4FB151542161CEFD00843DB6 /* lexical_analyzer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lexical_analyzer.h; sourceTree = "<group>"; };
 		4FB151582161CF1800843DB6 /* source_code.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = source_code.c; sourceTree = "<group>"; };
 		4FB151592161CF1800843DB6 /* source_code.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = source_code.h; sourceTree = "<group>"; };
 		4FB1515B2161CF1F00843DB6 /* token.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = token.c; sourceTree = "<group>"; };
 		4FB1515C2161CF1F00843DB6 /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
+		4FC4937B21BB6A4900D39EC4 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				4FB151592161CF1800843DB6 /* source_code.h */,
 				4FB1515B2161CF1F00843DB6 /* token.c */,
 				4FB1515C2161CF1F00843DB6 /* token.h */,
+				4FC4937B21BB6A4900D39EC4 /* Makefile */,
 			);
 			path = assignment2_lexer;
 			sourceTree = "<group>";
@@ -138,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FC4937C21BB6A4900D39EC4 /* Makefile in Sources */,
 				4FB151552161CEFD00843DB6 /* lexical_analyzer_deleteLexerOut.c in Sources */,
 				4FB1515A2161CF1800843DB6 /* source_code.c in Sources */,
 				4FB151572161CEFD00843DB6 /* lexical_analyzer.c in Sources */,
